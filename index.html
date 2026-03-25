@@ -9,96 +9,97 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #050508; --card: rgba(10,10,18,0.92); --card-hover: rgba(0,255,170,0.1);
-            --border: rgba(255,255,255,0.12); --border-acc: rgba(0,255,170,0.3);
-            --t1: #fff; --t2: rgba(255,255,255,0.78); --t3: rgba(255,255,255,0.55);
-            --green: #00ffaa; --blue: #0088ff; --glow: rgba(0,255,170,0.15);
-            --warn: #ffaa00; --danger: #ff5555;
-            --fd: 'Clash Display','Pretendard Variable',sans-serif;
-            --fb: 'Satoshi','Pretendard Variable',sans-serif;
-            --fm: 'JetBrains Mono',monospace;
-            --ease: cubic-bezier(0.16,1,0.3,1);
+            --bg:#050508;--card:rgba(10,10,18,.92);--card-h:rgba(0,255,170,.1);
+            --bd:rgba(255,255,255,.12);--bda:rgba(0,255,170,.3);
+            --t1:#fff;--t2:rgba(255,255,255,.78);--t3:rgba(255,255,255,.55);
+            --g:#00ffaa;--b:#0088ff;--w:#ffaa00;--r:#ff5555;
+            --fd:'Clash Display','Pretendard Variable',sans-serif;
+            --fb:'Satoshi','Pretendard Variable',sans-serif;
+            --fm:'JetBrains Mono',monospace;
+            --ease:cubic-bezier(.16,1,.3,1);
         }
         *{margin:0;padding:0;box-sizing:border-box}
         html{scroll-behavior:smooth;scroll-snap-type:y mandatory;height:100%;overflow-x:hidden}
         body{font-family:var(--fb);background:var(--bg);color:var(--t1);height:100%;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
         .s{width:100vw;height:100vh;height:100dvh;overflow:hidden;scroll-snap-align:start;display:flex;flex-direction:column;position:relative}
-        .sc{flex:1;display:flex;flex-direction:column;justify-content:center;padding:clamp(1.5rem,4vw,4rem);position:relative;z-index:2;max-height:100%;overflow:hidden}
+        .sc{flex:1;display:flex;flex-direction:column;justify-content:center;padding:clamp(1.5rem,4vw,3.5rem);position:relative;z-index:2;max-height:100%;overflow:hidden}
         .sc.c{align-items:center;text-align:center}
-        .grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,255,170,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,170,0.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+        .grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,255,170,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,170,.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
         .orb{position:absolute;border-radius:50%;filter:blur(120px);pointer-events:none}
-        .og{background:radial-gradient(circle,var(--green) 0%,transparent 70%);opacity:.25}
-        .ob{background:radial-gradient(circle,var(--blue) 0%,transparent 70%);opacity:.2}
+        .og{background:radial-gradient(circle,var(--g) 0%,transparent 70%);opacity:.25}
+        .ob{background:radial-gradient(circle,var(--b) 0%,transparent 70%);opacity:.2}
 
-        .badge{display:inline-flex;align-items:center;gap:.5em;padding:.35em 1em;border:1px solid var(--border-acc);border-radius:100px;font-size:clamp(.85rem,1.3vw,1.1rem);color:var(--green);letter-spacing:.12em;text-transform:uppercase;font-weight:500;margin-bottom:clamp(1rem,2.5vw,2.5rem);width:fit-content}
-        .h2{font-family:var(--fd);font-size:clamp(2rem,5vw,3.8rem);font-weight:700;line-height:1.15;letter-spacing:-.02em;margin-bottom:clamp(1rem,2.5vw,2.5rem)}
-        .h2 .a{background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .sub{font-size:clamp(1rem,1.8vw,1.35rem);color:var(--t2);line-height:1.7;max-width:700px}
+        .badge{display:inline-flex;align-items:center;gap:.5em;padding:.3em .9em;border:1px solid var(--bda);border-radius:100px;font-size:clamp(.75rem,1.1vw,.95rem);color:var(--g);letter-spacing:.1em;text-transform:uppercase;font-weight:500;margin-bottom:clamp(.8rem,2vw,1.8rem);width:fit-content}
+        .h2{font-family:var(--fd);font-size:clamp(1.5rem,3.5vw,2.5rem);font-weight:700;line-height:1.2;letter-spacing:-.01em;margin-bottom:clamp(.8rem,2vw,1.8rem)}
+        .h2 .a{background:linear-gradient(135deg,var(--g),var(--b));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .sub{font-size:clamp(.9rem,1.5vw,1.15rem);color:var(--t2);line-height:1.7;max-width:680px}
 
-        .h1{font-family:var(--fd);font-size:clamp(2.8rem,7vw,6rem);font-weight:700;line-height:1.1;letter-spacing:-.02em;margin-bottom:clamp(.5rem,1.5vw,1rem)}
+        .h1{font-family:var(--fd);font-size:clamp(1.8rem,4.5vw,3.2rem);font-weight:700;line-height:1.15;letter-spacing:-.01em;margin-bottom:clamp(.4rem,1vw,.8rem)}
         .h1 .kw{background:linear-gradient(135deg,#00ffaa,#00ccff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-        .h1sub{font-size:clamp(1.1rem,2vw,1.5rem);color:var(--t2);font-weight:400;margin-bottom:clamp(1.5rem,3vw,3rem)}
-        .pills{display:flex;gap:clamp(.5rem,1.2vw,1rem);justify-content:center;flex-wrap:wrap}
-        .pill{padding:.45em 1.1em;background:var(--card);border:1px solid var(--border);border-radius:8px;font-size:clamp(.85rem,1.3vw,1.1rem);color:rgba(255,255,255,.88);transition:all .3s}
-        .pill:hover{background:var(--card-hover);border-color:var(--border-acc);color:var(--green)}
-        .pill .n{color:var(--green);font-weight:600;margin-right:.4em}
+        .h1sub{font-size:clamp(.95rem,1.6vw,1.25rem);color:var(--t2);font-weight:400;margin-bottom:clamp(1.2rem,2.5vw,2rem)}
+        .pills{display:flex;gap:clamp(.4rem,1vw,.8rem);justify-content:center;flex-wrap:wrap}
+        .pill{padding:.4em .9em;background:var(--card);border:1px solid var(--bd);border-radius:8px;font-size:clamp(.78rem,1.1vw,.95rem);color:rgba(255,255,255,.88);transition:all .3s}
+        .pill:hover{background:var(--card-h);border-color:var(--bda);color:var(--g)}
+        .pill .n{color:var(--g);font-weight:600;margin-right:.3em}
 
-        .card{padding:clamp(1rem,2vw,1.8rem);background:var(--card);border:1px solid var(--border);border-radius:16px;transition:all .4s var(--ease)}
-        .card:hover{background:var(--card-hover);border-color:var(--border-acc);transform:translateY(-3px)}
-        .card-title{font-family:var(--fd);font-size:clamp(1.2rem,2vw,1.5rem);font-weight:600;margin-bottom:.5em}
-        .card-body{font-size:clamp(.9rem,1.5vw,1.15rem);color:var(--t2);line-height:1.7}
+        .card{padding:clamp(.8rem,1.5vw,1.4rem);background:var(--card);border:1px solid var(--bd);border-radius:14px;transition:all .4s var(--ease)}
+        .card:hover{background:var(--card-h);border-color:var(--bda);transform:translateY(-2px)}
+        .ct{font-family:var(--fd);font-size:clamp(1rem,1.6vw,1.25rem);font-weight:600;margin-bottom:.4em}
+        .cb{font-size:clamp(.85rem,1.3vw,1.05rem);color:var(--t2);line-height:1.7}
 
-        .quote{padding:clamp(.8rem,2vw,1.5rem) clamp(1rem,2.5vw,2rem);background:var(--card);border-left:3px solid var(--green);border-radius:0 12px 12px 0;font-size:clamp(1rem,1.8vw,1.35rem);color:rgba(255,255,255,.9);line-height:1.8;max-width:750px}
-        .quote .hl{color:var(--green);font-weight:600}
+        .quote{padding:clamp(.7rem,1.5vw,1.2rem) clamp(.8rem,2vw,1.5rem);background:var(--card);border-left:3px solid var(--g);border-radius:0 10px 10px 0;font-size:clamp(.9rem,1.5vw,1.15rem);color:rgba(255,255,255,.9);line-height:1.8;max-width:700px}
+        .quote .hl{color:var(--g);font-weight:600}
 
-        .insight{margin-top:clamp(1rem,2vw,1.5rem);padding:clamp(.8rem,1.5vw,1.2rem) clamp(1rem,2vw,1.5rem);background:rgba(0,255,170,.04);border:1px solid rgba(0,255,170,.12);border-radius:12px;display:flex;align-items:flex-start;gap:.8em;text-align:left;max-width:800px;width:100%}
-        .insight p{font-size:clamp(.9rem,1.3vw,1.1rem);color:var(--t2);line-height:1.7}
-        .insight strong{color:var(--green);font-weight:600}
+        .insight{margin-top:clamp(.8rem,1.5vw,1.2rem);padding:clamp(.6rem,1.2vw,1rem) clamp(.8rem,1.5vw,1.2rem);background:rgba(0,255,170,.04);border:1px solid rgba(0,255,170,.12);border-radius:10px;display:flex;align-items:flex-start;gap:.7em;text-align:left;max-width:780px;width:100%}
+        .insight p{font-size:clamp(.82rem,1.2vw,1rem);color:var(--t2);line-height:1.7}
+        .insight strong{color:var(--g);font-weight:600}
 
-        .cols{display:grid;gap:clamp(.8rem,1.5vw,1.2rem);width:100%;max-width:950px;margin:0 auto}
-        .cols-2{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
-        .cols-3{grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
+        .cols{display:grid;gap:clamp(.6rem,1.2vw,1rem);width:100%;max-width:900px;margin:0 auto}
+        .c2{grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))}
+        .c3{grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))}
 
-        .flow{display:flex;align-items:center;justify-content:center;gap:clamp(.3rem,.8vw,.6rem);flex-wrap:wrap;width:100%;max-width:950px;margin:0 auto}
-        .fstep{padding:clamp(.6rem,1.2vw,1.2rem) clamp(.8rem,1.5vw,1.5rem);background:var(--card);border:1px solid var(--border);border-radius:12px;text-align:center;flex:1;min-width:100px;transition:all .3s}
-        .fstep:hover{border-color:var(--border-acc);background:var(--card-hover)}
-        .fstep .fn{font-family:var(--fm);font-size:clamp(.85rem,1.3vw,1.1rem);color:var(--green);margin-bottom:.3em}
-        .fstep .fl{font-family:var(--fd);font-size:clamp(1rem,1.8vw,1.2rem);font-weight:600}
-        .fstep .fd{font-size:clamp(.8rem,1.2vw,1rem);color:var(--t2);margin-top:.2em}
-        .fstep.hitl{border-color:rgba(255,170,0,.4);background:rgba(255,170,0,.06)}
-        .fstep.hitl .fn{color:var(--warn)}
-        .fa{color:var(--green);font-size:clamp(1rem,1.8vw,1.5rem);opacity:.5;flex-shrink:0}
+        .flow{display:flex;align-items:center;justify-content:center;gap:clamp(.2rem,.6vw,.5rem);flex-wrap:wrap;width:100%;max-width:900px;margin:0 auto}
+        .fs{padding:clamp(.5rem,1vw,1rem) clamp(.6rem,1.2vw,1.2rem);background:var(--card);border:1px solid var(--bd);border-radius:10px;text-align:center;flex:1;min-width:90px;transition:all .3s}
+        .fs:hover{border-color:var(--bda);background:var(--card-h)}
+        .fs .fn{font-family:var(--fm);font-size:clamp(.75rem,1.1vw,.9rem);color:var(--g);margin-bottom:.2em}
+        .fs .fl{font-family:var(--fd);font-size:clamp(.85rem,1.4vw,1.05rem);font-weight:600}
+        .fs .fd{font-size:clamp(.72rem,1vw,.88rem);color:var(--t2);margin-top:.15em}
+        .fs.hitl{border-color:rgba(255,170,0,.4);background:rgba(255,170,0,.06)}
+        .fs.hitl .fn{color:var(--w)}
+        .fa{color:var(--g);font-size:clamp(.85rem,1.4vw,1.2rem);opacity:.5;flex-shrink:0}
 
-        .code{background:rgba(0,0,0,.6);border:1px solid var(--border);border-radius:12px;padding:clamp(1rem,2vw,1.5rem);font-family:var(--fm);font-size:clamp(.85rem,1.3vw,1.05rem);color:var(--t2);line-height:1.8;overflow-x:auto;max-width:800px;width:100%;text-align:left}
-        .code .cm{color:var(--t3)} .code .kw{color:#c792ea} .code .fn{color:#82aaff} .code .st{color:#c3e88d} .code .ac{color:var(--green);font-weight:600}
+        .code{background:rgba(0,0,0,.6);border:1px solid var(--bd);border-radius:10px;padding:clamp(.8rem,1.5vw,1.2rem);font-family:var(--fm);font-size:clamp(.78rem,1.1vw,.92rem);color:var(--t2);line-height:1.8;overflow-x:auto;max-width:750px;width:100%;text-align:left}
+        .code .cm{color:var(--t3)} .code .kw{color:#c792ea} .code .fn{color:#82aaff} .code .st{color:#c3e88d} .code .ac{color:var(--g);font-weight:600}
 
-        .big-emoji{font-size:clamp(3rem,8vw,6rem);margin-bottom:1rem}
+        .tbl{width:100%;max-width:780px;margin:0 auto;border-collapse:separate;border-spacing:0;border-radius:10px;overflow:hidden;background:var(--card);border:1px solid var(--bd)}
+        .tbl th,.tbl td{padding:clamp(.4rem,1vw,.8rem) clamp(.5rem,1.2vw,1rem);font-size:clamp(.82rem,1.2vw,1rem);border-bottom:1px solid var(--bd)}
+        .tbl thead th{background:rgba(0,255,170,.05);font-family:var(--fd);font-weight:600;font-size:clamp(.75rem,1.1vw,.9rem);letter-spacing:.04em;text-align:left}
+        .tbl td:first-child{font-family:var(--fm);font-size:clamp(.78rem,1.1vw,.92rem);color:var(--g);font-weight:600}
+        .tbl tr:last-child td{border-bottom:none}
 
-        .rv{opacity:0;transform:translateY(25px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
-        .rl{opacity:0;transform:translateX(-30px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
-        .rs{opacity:0;transform:scale(.92);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+        .rv{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+        .rl{opacity:0;transform:translateX(-25px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+        .rs{opacity:0;transform:scale(.93);transition:opacity .7s var(--ease),transform .7s var(--ease)}
         .s.v .rv,.s.v .rl,.s.v .rs{opacity:1;transform:none}
-        .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}.d6{transition-delay:.6s}
+        .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
 
-        .prog{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--green),var(--blue));z-index:100;transition:width .3s;width:0%}
-        .slide-counter{position:fixed;bottom:1.5rem;right:1.5rem;font-family:var(--fm);font-size:.9rem;color:var(--t3);z-index:100;background:var(--card);padding:.4em .8em;border-radius:8px;border:1px solid var(--border)}
+        .prog{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--g),var(--b));z-index:100;transition:width .3s;width:0%}
+        .cnt{position:fixed;bottom:1.2rem;right:1.2rem;font-family:var(--fm);font-size:.8rem;color:var(--t3);z-index:100;background:var(--card);padding:.3em .7em;border-radius:6px;border:1px solid var(--bd)}
 
-        @keyframes f1{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,20px)}}
-        @keyframes f2{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-30px)}}
-        @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.05)}}
-        .pulse{animation:pulse 2s ease-in-out infinite}
+        @keyframes f1{0%,100%{transform:translate(0,0)}50%{transform:translate(-25px,15px)}}
+        @keyframes f2{0%,100%{transform:translate(0,0)}50%{transform:translate(15px,-25px)}}
     </style>
 </head>
 <body>
 <div class="prog" id="prog"></div>
-<div class="slide-counter" id="counter">1 / 12</div>
+<div class="cnt" id="cnt">1 / 12</div>
 
 <!-- ===== 1. TITLE ===== -->
 <section class="s" id="s1">
     <div class="grid"></div>
-    <div class="orb og" style="width:500px;height:500px;top:-15%;right:-10%;animation:f1 8s ease-in-out infinite"></div>
-    <div class="orb ob" style="width:400px;height:400px;bottom:-10%;left:-5%;animation:f2 10s ease-in-out infinite"></div>
+    <div class="orb og" style="width:400px;height:400px;top:-12%;right:-8%;animation:f1 8s ease-in-out infinite"></div>
+    <div class="orb ob" style="width:320px;height:320px;bottom:-8%;left:-4%;animation:f2 10s ease-in-out infinite"></div>
     <div class="sc c">
         <div class="badge rv">ModuLAB Study Week 6</div>
         <h1 class="h1 rv d1">AI가 이메일을 보내기 전에<br><span class="kw">사람에게 물어본다면?</span></h1>
@@ -115,31 +116,31 @@
 <section class="s" id="s2">
     <div class="grid"></div>
     <div class="sc">
-        <div class="badge rv">배경지식</div>
-        <h2 class="h2 rv d1">먼저, <span class="a">AI 에이전트</span>가 뭔가요?</h2>
-        <div class="cols cols-2 rv d2">
+        <div class="badge rv">배경지식 1</div>
+        <h2 class="h2 rv d1"><span class="a">AI 에이전트</span>란 무엇인가?</h2>
+        <div class="cols c2 rv d2">
             <div class="card">
-                <div style="font-size:2.5em;margin-bottom:.3em">🤖</div>
-                <div class="card-title">일반 AI (챗봇)</div>
-                <div class="card-body">
-                    질문하면 답만 해줌<br>
+                <div style="font-size:2em;margin-bottom:.3em">🤖</div>
+                <div class="ct">일반 AI (챗봇)</div>
+                <div class="cb">
+                    질문하면 <b>답만</b> 해줌<br>
                     "서울 날씨 알려줘" → "맑음, 22도"<br><br>
-                    <span style="color:var(--t3)">= 대화만 가능</span>
+                    <span style="color:var(--t3)">대화만 가능하고, 직접 행동하지 않음</span>
                 </div>
             </div>
-            <div class="card" style="border-color:var(--border-acc)">
-                <div style="font-size:2.5em;margin-bottom:.3em">🦾</div>
-                <div class="card-title" style="color:var(--green)">AI 에이전트</div>
-                <div class="card-body">
-                    스스로 <b style="color:var(--green)">판단하고 행동</b>함<br>
+            <div class="card" style="border-color:var(--bda)">
+                <div style="font-size:2em;margin-bottom:.3em">🦾</div>
+                <div class="ct" style="color:var(--g)">AI 에이전트</div>
+                <div class="cb">
+                    스스로 <b style="color:var(--g)">판단하고 행동</b>함<br>
                     "비 오면 우산 주문해줘" → 날씨 확인 → 쿠팡 주문<br><br>
-                    <span style="color:var(--green)">= 도구를 사용해서 실제 행동</span>
+                    <span style="color:var(--g)">도구를 사용해서 실제로 행동함</span>
                 </div>
             </div>
         </div>
         <div class="insight rv d3">
             <span>💡</span>
-            <p>AI 에이전트는 <strong>"생각 → 도구 사용 → 결과 확인 → 다시 생각"</strong>을 반복합니다. 이걸 <strong>ReAct 패턴</strong>이라 부릅니다.</p>
+            <p>AI 에이전트는 <strong>"생각 → 도구 사용 → 결과 확인"</strong>을 반복합니다. 단순히 대답만 하는 챗봇과 달리, 이메일 전송, 검색, 결제 같은 <strong>실제 행동</strong>을 수행할 수 있습니다.</p>
         </div>
     </div>
 </section>
@@ -147,19 +148,19 @@
 <!-- ===== 3. 문제 제기 ===== -->
 <section class="s" id="s3">
     <div class="grid"></div>
-    <div class="orb og" style="width:300px;height:300px;top:20%;right:10%;animation:f1 6s ease-in-out infinite"></div>
+    <div class="orb og" style="width:250px;height:250px;top:15%;right:8%;animation:f1 6s ease-in-out infinite"></div>
     <div class="sc c">
-        <div class="badge rv">Problem</div>
-        <div class="big-emoji rv d1">🚨</div>
-        <h2 class="h2 rv d2">근데 AI가 <span class="a">마음대로 행동</span>하면?</h2>
-        <div class="quote rv d3">
-            "김팀장에게 회의록 보내줘" → AI가 <span class="hl">즉시 전송</span><br><br>
+        <div class="badge rv">배경지식 2</div>
+        <h2 class="h2 rv d1">근데 AI가 <span class="a">마음대로 행동</span>하면?</h2>
+        <div class="quote rv d2" style="margin:0 auto">
+            "김팀장에게 회의록 보내줘"<br>
+            → AI가 확인도 없이 <span class="hl">바로 전송</span><br>
             → 잘못된 주소로 발송됨 → 기밀 유출 😱<br>
-            → <span style="color:var(--danger);font-weight:600">되돌릴 수 없음</span>
+            → <span style="color:var(--r);font-weight:600">되돌릴 수 없음</span>
         </div>
-        <div class="insight rv d4" style="margin:1.5rem auto 0">
+        <div class="insight rv d3" style="margin:1.2rem auto 0">
             <span>🔑</span>
-            <p><strong>해결책</strong>: 민감한 행동 전에는 반드시 <strong>사람이 확인하고 승인</strong>해야 한다 → 이것이 <strong>Human-in-the-Loop (HITL)</strong></p>
+            <p><strong>해결책</strong>: 민감한 행동을 하기 전에 반드시 <strong>사람이 확인하고 승인</strong>해야 한다.<br>이것이 <strong>Human-in-the-Loop (사람이 중간에 확인하는 구조)</strong> 입니다.</p>
         </div>
     </div>
 </section>
@@ -168,32 +169,31 @@
 <section class="s" id="s4">
     <div class="grid"></div>
     <div class="sc">
-        <div class="badge rv">배경지식</div>
-        <h2 class="h2 rv d1"><span class="a">LangGraph</span>가 뭔가요?</h2>
-        <div class="cols cols-2 rv d2">
+        <div class="badge rv">배경지식 3</div>
+        <h2 class="h2 rv d1"><span class="a">LangGraph</span> — AI 워크플로우를 그래프로 설계하는 도구</h2>
+        <div class="cols c2 rv d2">
             <div class="card">
-                <div class="card-title">AI 워크플로우를 <b style="color:var(--green)">그래프</b>로 만드는 프레임워크</div>
-                <div class="card-body">
-                    지하철 노선도처럼,<br>
-                    AI의 행동을 <b>노드(역)</b>와 <b>엣지(노선)</b>로 설계<br><br>
-                    <span style="font-family:var(--fm);font-size:.9em;color:var(--green)">
-                    [입력] → [AI 판단] → [도구 실행] → [출력]
-                    </span>
+                <div class="ct">무엇인가?</div>
+                <div class="cb">
+                    AI의 <b>작업 순서</b>를 설계하는 도구<br><br>
+                    지하철 노선도처럼<br>
+                    <b style="color:var(--g)">노드(역)</b> = 각 작업 단계<br>
+                    <b style="color:var(--g)">엣지(노선)</b> = 작업 순서 연결
                 </div>
             </div>
             <div class="card">
-                <div class="card-title">왜 그래프인가?</div>
-                <div class="card-body">
-                    <b style="color:var(--green)">분기</b> — 조건에 따라 다른 경로<br>
-                    <b style="color:var(--warn)">중단</b> — 특정 지점에서 멈춤 (HITL!)<br>
-                    <b style="color:var(--blue)">반복</b> — 결과가 부족하면 다시 시도<br><br>
-                    <span style="color:var(--t3)">일직선 코드로는 이런 흐름을 만들기 어려움</span>
+                <div class="ct">왜 그래프인가?</div>
+                <div class="cb">
+                    <b style="color:var(--g)">분기</b> — 조건에 따라 다른 경로로<br>
+                    <b style="color:var(--w)">중단</b> — 특정 지점에서 멈춤 (HITL)<br>
+                    <b style="color:var(--b)">반복</b> — 결과가 부족하면 다시 시도<br><br>
+                    <span style="color:var(--t3)">일직선 코드로는 이런 흐름이 어려움</span>
                 </div>
             </div>
         </div>
         <div class="insight rv d3">
             <span>🚇</span>
-            <p><strong>비유</strong>: LangGraph = AI의 지하철 노선도. 각 역(노드)에서 할 일을 정하고, 노선(엣지)으로 연결합니다. 특정 역에서 <strong>하차(interrupt)</strong>할 수도 있습니다.</p>
+            <p>LangGraph = AI의 <strong>작업 흐름표</strong>. 각 역(노드)에서 할 일을 정하고, 노선(엣지)으로 연결합니다. 특정 역에서 <strong>하차(중단)</strong>해서 사람의 확인을 받을 수도 있습니다.</p>
         </div>
     </div>
 </section>
@@ -202,25 +202,24 @@
 <section class="s" id="s5">
     <div class="grid"></div>
     <div class="sc">
-        <div class="badge rv">배경지식</div>
-        <h2 class="h2 rv d1"><span class="a">Act Operator</span> = 프로젝트 자동 생성기</h2>
+        <div class="badge rv">배경지식 4</div>
+        <h2 class="h2 rv d1"><span class="a">Act Operator</span> — LangGraph 프로젝트 자동 생성기</h2>
         <div class="quote rv d2">
-            LangGraph 프로젝트를 밑바닥부터 만드는 건 번거롭다.<br>
-            <span class="hl">폴더 구조, 상태 관리, 도구 연동, 테스트...</span><br><br>
-            Act Operator는 이 모든 뼈대를 <span class="hl">명령어 한 줄</span>로 생성해준다.
+            LangGraph 프로젝트를 처음부터 만들면 폴더 구조, 상태 관리, 도구 연동 등을 직접 설정해야 한다.<br>
+            Act Operator는 이 <span class="hl">뼈대를 명령어 하나로 생성</span>해준다.
         </div>
-        <div class="flow rv d3" style="margin-top:2rem">
-            <div class="fstep"><div class="fn">01</div><div class="fl">act new</div><div class="fd">프로젝트 생성</div></div>
-            <span class="fa">→</span>
-            <div class="fstep"><div class="fn">02</div><div class="fl">uv sync</div><div class="fd">의존성 설치</div></div>
-            <span class="fa">→</span>
-            <div class="fstep"><div class="fn">03</div><div class="fl">코드 구현</div><div class="fd">Claude Code</div></div>
-            <span class="fa">→</span>
-            <div class="fstep"><div class="fn">04</div><div class="fl">langgraph dev</div><div class="fd">시각화 + 테스트</div></div>
-        </div>
-        <div class="insight rv d4" style="margin:1.5rem auto 0">
+        <table class="tbl rv d3" style="margin-top:1.2rem">
+            <thead><tr><th>명령어</th><th>하는 일</th><th>비유</th></tr></thead>
+            <tbody>
+                <tr><td>act new</td><td>프로젝트 폴더와 파일을 자동 생성</td><td>건물의 골조 세우기</td></tr>
+                <tr><td>uv sync</td><td>필요한 라이브러리 설치</td><td>건축 자재 반입</td></tr>
+                <tr><td>act cast</td><td>새 워크플로우 추가</td><td>새 층 추가</td></tr>
+                <tr><td>langgraph dev</td><td>개발 서버 실행 + 시각화</td><td>준공 검사</td></tr>
+            </tbody>
+        </table>
+        <div class="insight rv d4" style="margin-top:1rem">
             <span>🎬</span>
-            <p><strong>Act</strong> = 영화 한 편 (전체 프로젝트) &nbsp;|&nbsp; <strong>Cast</strong> = 배우 (개별 워크플로우)<br>하나의 Act 안에 여러 Cast(챗봇, 이메일봇, 분류기 등)를 독립적으로 관리합니다.</p>
+            <p><strong>Act</strong> = 전체 프로젝트 &nbsp;|&nbsp; <strong>Cast</strong> = 개별 워크플로우<br>하나의 Act 안에 여러 Cast (챗봇, 이메일봇, 분류기 등)를 독립적으로 관리합니다.</p>
         </div>
     </div>
 </section>
@@ -228,24 +227,26 @@
 <!-- ===== 6. HITL 개념 ===== -->
 <section class="s" id="s6">
     <div class="grid"></div>
-    <div class="orb ob" style="width:350px;height:350px;bottom:10%;left:5%;animation:f2 8s ease-in-out infinite"></div>
+    <div class="orb ob" style="width:300px;height:300px;bottom:8%;left:4%;animation:f2 8s ease-in-out infinite"></div>
     <div class="sc c">
         <div class="badge rv">핵심 개념</div>
-        <h2 class="h2 rv d1">Human-in-the-Loop<br><span class="a">어디서 멈추고, 어디서 이어지나?</span></h2>
+        <h2 class="h2 rv d1">Human-in-the-Loop (사람이 중간에 확인)<br><span class="a">어디서 멈추고, 어디서 다시 시작하나?</span></h2>
         <div class="flow rv d2">
-            <div class="fstep"><div class="fn">💬</div><div class="fl">사용자 요청</div><div class="fd">"이메일 보내줘"</div></div>
+            <div class="fs"><div class="fn">💬</div><div class="fl">사용자 요청</div><div class="fd">"이메일 보내줘"</div></div>
             <span class="fa">→</span>
-            <div class="fstep"><div class="fn">🤖</div><div class="fl">AI가 초안 작성</div><div class="fd">GPT-4o-mini</div></div>
+            <div class="fs"><div class="fn">🤖</div><div class="fl">AI가 초안 작성</div><div class="fd">자동으로 작성</div></div>
             <span class="fa">→</span>
-            <div class="fstep hitl" style="transform:scale(1.05)"><div class="fn" style="font-size:1.3em">⏸️</div><div class="fl">여기서 멈춤!</div><div class="fd">사용자 승인 대기</div></div>
+            <div class="fs hitl"><div class="fn" style="font-size:1.2em">⏸️</div><div class="fl">여기서 멈춤!</div><div class="fd">사용자 승인 대기</div></div>
             <span class="fa">→</span>
-            <div class="fstep"><div class="fn">👤</div><div class="fl">사람이 결정</div><div class="fd">승인 / 수정 / 거부</div></div>
+            <div class="fs"><div class="fn">👤</div><div class="fl">사람이 결정</div><div class="fd">승인 / 거부</div></div>
             <span class="fa">→</span>
-            <div class="fstep"><div class="fn">📧</div><div class="fl">Gmail 전송</div><div class="fd">승인 시에만</div></div>
+            <div class="fs"><div class="fn">📧</div><div class="fl">이메일 전송</div><div class="fd">승인 시에만 전송</div></div>
         </div>
-        <div class="insight rv d3" style="margin:2rem auto 0">
+        <div class="insight rv d3" style="margin:1.2rem auto 0">
             <span>⭐</span>
-            <p>코드에서 <strong style="font-family:var(--fm)">interrupt()</strong>라는 함수 한 줄이 그래프를 멈춥니다. 사용자가 <strong style="font-family:var(--fm)">resume("yes")</strong>를 보내면 멈춘 지점부터 이어서 실행됩니다.</p>
+            <p>코드에서 <strong style="font-family:var(--fm)">interrupt()</strong> — 실행을 멈추는 함수 — 를 호출하면 그래프가 멈춥니다.<br>
+            사용자가 <strong style="font-family:var(--fm)">resume</strong> (다시 시작) 명령을 보내면 멈춘 곳에서 이어서 실행됩니다.<br>
+            <strong>Checkpointer</strong> (멈춘 상태를 저장하는 장치) 가 있어야 다시 이어갈 수 있습니다.</p>
         </div>
     </div>
 </section>
@@ -255,32 +256,32 @@
     <div class="grid"></div>
     <div class="sc c">
         <div class="badge rv">구조</div>
-        <h2 class="h2 rv d1">이메일 봇은 <span class="a">파일 5개</span>로 구성</h2>
-        <div class="cols cols-3 rv d2">
+        <h2 class="h2 rv d1">이메일 봇은 <span class="a">핵심 파일 5개</span>로 구성</h2>
+        <div class="cols c3 rv d2">
             <div class="card">
-                <div style="font-size:1.8em;margin-bottom:.3em">📋</div>
-                <div class="card-title">state.py</div>
-                <div class="card-body">이메일 데이터 구조 정의<br><span style="font-family:var(--fm);font-size:.85em;color:var(--green)">수신자, 제목, 본문</span></div>
+                <div style="font-size:1.5em;margin-bottom:.2em">📋</div>
+                <div class="ct">상태 정의</div>
+                <div class="cb">이메일 데이터 구조<br><span style="font-family:var(--fm);font-size:.85em;color:var(--g)">state.py</span><br>수신자, 제목, 본문</div>
             </div>
             <div class="card">
-                <div style="font-size:1.8em;margin-bottom:.3em">⚙️</div>
-                <div class="card-title">nodes.py</div>
-                <div class="card-body">3개 노드 (핵심 로직)<br><span style="font-family:var(--fm);font-size:.85em;color:var(--green)">초안 → 승인 → 전송</span></div>
+                <div style="font-size:1.5em;margin-bottom:.2em">⚙️</div>
+                <div class="ct">작업 노드</div>
+                <div class="cb">3단계 핵심 로직<br><span style="font-family:var(--fm);font-size:.85em;color:var(--g)">nodes.py</span><br>초안 → 승인 → 전송</div>
             </div>
             <div class="card" style="border-color:rgba(255,170,0,.3)">
-                <div style="font-size:1.8em;margin-bottom:.3em">⏸️</div>
-                <div class="card-title" style="color:var(--warn)">interrupt()</div>
-                <div class="card-body">ReviewEmailNode 안에서<br><span style="font-family:var(--fm);font-size:.85em;color:var(--warn)">HITL 중단 지점</span></div>
+                <div style="font-size:1.5em;margin-bottom:.2em">⏸️</div>
+                <div class="ct" style="color:var(--w)">멈춤 지점</div>
+                <div class="cb">HITL 승인 요청<br><span style="font-family:var(--fm);font-size:.85em;color:var(--w)">interrupt()</span><br>사용자 결정 대기</div>
             </div>
             <div class="card">
-                <div style="font-size:1.8em;margin-bottom:.3em">📧</div>
-                <div class="card-title">tools.py</div>
-                <div class="card-body">Gmail SMTP 전송<br><span style="font-family:var(--fm);font-size:.85em;color:var(--green)">실제 이메일 발송</span></div>
+                <div style="font-size:1.5em;margin-bottom:.2em">📧</div>
+                <div class="ct">이메일 도구</div>
+                <div class="cb">Gmail 전송 함수<br><span style="font-family:var(--fm);font-size:.85em;color:var(--g)">tools.py</span><br>실제 이메일 발송</div>
             </div>
             <div class="card">
-                <div style="font-size:1.8em;margin-bottom:.3em">🔗</div>
-                <div class="card-title">graph.py</div>
-                <div class="card-body">노드를 연결하는 설계도<br><span style="font-family:var(--fm);font-size:.85em;color:var(--green)">+ Checkpointer 설정</span></div>
+                <div style="font-size:1.5em;margin-bottom:.2em">🔗</div>
+                <div class="ct">그래프 조립</div>
+                <div class="cb">노드를 연결하는 설계도<br><span style="font-family:var(--fm);font-size:.85em;color:var(--g)">graph.py</span><br>+ 상태 저장 장치</div>
             </div>
         </div>
     </div>
@@ -289,57 +290,61 @@
 <!-- ===== 8. 시연 — 터미널 ===== -->
 <section class="s" id="s8">
     <div class="grid"></div>
-    <div class="orb og" style="width:300px;height:300px;top:5%;right:5%;animation:f1 7s ease-in-out infinite"></div>
+    <div class="orb og" style="width:250px;height:250px;top:5%;right:5%;animation:f1 7s ease-in-out infinite"></div>
     <div class="sc c">
-        <div class="badge rv">라이브 시연 1</div>
-        <h2 class="h2 rv d1">터미널에서 <span class="a">실제 실행</span></h2>
+        <div class="badge rv">라이브 시연</div>
+        <h2 class="h2 rv d1">실제로 이메일을 보내봅시다</h2>
         <div class="code rv d2">
-            <span class="cm"># Step 1: 이메일 작성 요청</span><br>
-            graph.<span class="fn">invoke</span>({<span class="st">"query"</span>: <span class="st">"테스트 이메일 보내줘"</span>})<br><br>
+            <span class="cm"># 1단계: 이메일 작성 요청</span><br>
+            <span class="st">"makegrowth101@gmail.com에게 테스트 메일 보내줘"</span><br><br>
+            <span class="cm"># 2단계: AI가 초안을 작성하고... 멈춤!</span><br>
             <span class="ac">⏸️ === 이메일 승인 요청 ===</span><br>
             <span class="ac">수신자: makegrowth101@gmail.com</span><br>
             <span class="ac">제목: 테스트 이메일</span><br>
             <span class="ac">본문: 안녕하세요, 테스트입니다...</span><br>
-            <span class="ac">========================</span><br>
-            <span style="color:var(--warn)">승인하려면 'yes', 거부하려면 'no'</span><br><br>
-            <span class="cm"># ⏸️ 여기서 멈춤! 사용자가 결정할 때까지 대기</span><br><br>
-            <span class="cm"># Step 2: 사용자가 승인</span><br>
-            graph.<span class="fn">invoke</span>(Command(resume=<span class="st">"yes"</span>))<br><br>
+            <span style="color:var(--w)">승인하려면 'yes', 거부하려면 'no'</span><br><br>
+            <span class="cm"># 3단계: 사람이 승인하면 → 진짜 전송!</span><br>
             <span class="ac">✅ 이메일 전송 완료!</span>
+        </div>
+        <div class="insight rv d3" style="margin:1rem auto 0">
+            <span>👉</span>
+            <p>지금부터 터미널에서 실제로 실행합니다. AI가 초안을 만들고, <strong>멈추는 순간</strong>을 직접 보세요.</p>
         </div>
     </div>
 </section>
 
-<!-- ===== 9. 시연 — LangGraph Studio ===== -->
+<!-- ===== 9. LangGraph Studio + LangSmith ===== -->
 <section class="s" id="s9">
     <div class="grid"></div>
     <div class="sc c">
-        <div class="badge rv">라이브 시연 2</div>
-        <h2 class="h2 rv d1">LangGraph Studio에서 <span class="a">시각화</span></h2>
-        <div class="cols cols-2 rv d2">
+        <div class="badge rv">시각화</div>
+        <h2 class="h2 rv d1">LangGraph Studio + LangSmith로 <span class="a">눈으로 확인</span></h2>
+        <div class="cols c2 rv d2">
             <div class="card">
-                <div class="card-title">🖥️ langgraph dev 실행</div>
-                <div class="card-body">
-                    <span style="font-family:var(--fm);font-size:.9em;color:var(--green)">localhost:8000</span>에서 열림<br><br>
+                <div class="ct">🖥️ LangGraph Studio</div>
+                <div class="cb">
+                    <span style="font-family:var(--fm);font-size:.85em;color:var(--g)">langgraph dev</span> — 개발 서버 실행<br><br>
                     그래프가 <b>시각적으로</b> 보임<br>
-                    각 노드 클릭 → 입출력 확인<br>
-                    <b style="color:var(--warn)">interrupt 지점</b>이 표시됨
+                    각 노드를 클릭하면 입출력 데이터 확인<br>
+                    <b style="color:var(--w)">interrupt 지점</b>이 표시됨
                 </div>
             </div>
             <div class="card">
-                <div class="card-title">📊 LangSmith Trace</div>
-                <div class="card-body">
-                    <span style="font-family:var(--fm);font-size:.9em;color:var(--green)">smith.langchain.com</span>에서 확인<br><br>
-                    LLM에 보낸 프롬프트 전문<br>
-                    토큰 사용량 + 비용<br>
-                    <b>각 노드 실행 시간</b>
+                <div class="ct">📊 LangSmith</div>
+                <div class="cb">
+                    AI 에이전트의 <b>실행 기록 전체</b>를 추적<br><br>
+                    AI에게 보낸 프롬프트 전문<br>
+                    AI의 응답 + 토큰 사용량 + 비용<br>
+                    <b>각 노드의 실행 시간</b>
                 </div>
             </div>
         </div>
-        <div class="insight rv d3" style="margin:1.5rem auto 0">
+        <div class="insight rv d3" style="margin:1.2rem auto 0">
             <span>⚙️</span>
-            <p><strong>.env 파일에 3줄</strong>만 추가하면 코드 수정 없이 모든 실행이 자동으로 LangSmith에 기록됩니다.<br>
-            <span style="font-family:var(--fm);font-size:.9em">LANGSMITH_TRACING=true &nbsp;|&nbsp; LANGSMITH_PROJECT=email-bot &nbsp;|&nbsp; LANGSMITH_API_KEY=...</span></p>
+            <p>설정 파일(.env)에 <strong>3줄만 추가</strong>하면 코드 수정 없이 모든 실행이 자동으로 기록됩니다.<br>
+            <span style="font-family:var(--fm);font-size:.85em">LANGSMITH_TRACING=true</span> — 추적 켜기 &nbsp;|&nbsp;
+            <span style="font-family:var(--fm);font-size:.85em">LANGSMITH_PROJECT=이름</span> — 프로젝트 지정 &nbsp;|&nbsp;
+            <span style="font-family:var(--fm);font-size:.85em">LANGSMITH_API_KEY=키</span> — 인증</p>
         </div>
     </div>
 </section>
@@ -348,28 +353,28 @@
 <section class="s" id="s10">
     <div class="grid"></div>
     <div class="sc c">
-        <div class="badge rv">관측 가능성</div>
-        <h2 class="h2 rv d1">LangSmith = AI의 <span class="a">블랙박스 레코더</span></h2>
-        <div class="cols cols-3 rv d2">
+        <div class="badge rv">추적 상세</div>
+        <h2 class="h2 rv d1">LangSmith에서 보이는 것 — AI의 <span class="a">행동 기록</span></h2>
+        <div class="cols c3 rv d2">
             <div class="card">
-                <div style="font-size:1.5em;margin-bottom:.3em">🔵</div>
-                <div class="card-title">draft_email</div>
-                <div class="card-body">LLM 프롬프트 전문<br>생성된 이메일 초안<br><span style="font-family:var(--fm);color:var(--green);font-size:.85em">토큰: 180 / $0.0002</span></div>
+                <div style="font-size:1.3em;margin-bottom:.2em">🔵</div>
+                <div class="ct">초안 작성 노드</div>
+                <div class="cb">AI에게 보낸 지시문<br>생성된 이메일 초안<br><span style="font-family:var(--fm);color:var(--g);font-size:.85em">토큰 수 + 비용 확인</span></div>
             </div>
             <div class="card" style="border-color:rgba(255,170,0,.3)">
-                <div style="font-size:1.5em;margin-bottom:.3em">🟡</div>
-                <div class="card-title">review_email</div>
-                <div class="card-body">⏸️ Interrupt 기록<br>사용자 대기 시간<br><span style="font-family:var(--fm);color:var(--warn);font-size:.85em">resume: "yes"</span></div>
+                <div style="font-size:1.3em;margin-bottom:.2em">🟡</div>
+                <div class="ct">승인 대기 노드</div>
+                <div class="cb">⏸️ 멈춤 기록<br>사용자 대기 시간<br><span style="font-family:var(--fm);color:var(--w);font-size:.85em">승인 결과: "yes"</span></div>
             </div>
             <div class="card">
-                <div style="font-size:1.5em;margin-bottom:.3em">🟢</div>
-                <div class="card-title">send_email</div>
-                <div class="card-body">SMTP 연결 기록<br>전송 성공/실패<br><span style="font-family:var(--fm);color:var(--green);font-size:.85em">✅ 전송 완료</span></div>
+                <div style="font-size:1.3em;margin-bottom:.2em">🟢</div>
+                <div class="ct">전송 노드</div>
+                <div class="cb">Gmail 연결 기록<br>전송 성공/실패<br><span style="font-family:var(--fm);color:var(--g);font-size:.85em">✅ 전송 완료</span></div>
             </div>
         </div>
-        <div class="insight rv d3" style="margin:1.5rem auto 0">
+        <div class="insight rv d3" style="margin:1.2rem auto 0">
             <span>🔍</span>
-            <p>"에이전트가 왜 저런 이메일을 썼지?" → LangSmith에서 <strong>프롬프트와 응답</strong>을 그대로 확인할 수 있습니다. 디버깅의 핵심 도구입니다.</p>
+            <p>"AI가 왜 이런 이메일을 썼지?" → LangSmith에서 <strong>AI에게 보낸 지시문과 응답</strong>을 그대로 확인할 수 있습니다.</p>
         </div>
     </div>
 </section>
@@ -379,16 +384,16 @@
     <div class="grid"></div>
     <div class="sc c">
         <div class="badge rv">확장</div>
-        <h2 class="h2 rv d1">이메일 말고 <span class="a">또 뭐에 쓸 수 있나?</span></h2>
-        <div class="cols cols-3 rv d2">
-            <div class="card"><div style="font-size:1.5em;margin-bottom:.3em">💳</div><div class="card-title">결제 봇</div><div class="card-body">고액 결제 전 승인<br><span style="color:var(--t3)">금융 사고 예방</span></div></div>
-            <div class="card"><div style="font-size:1.5em;margin-bottom:.3em">🗄️</div><div class="card-title">DB 수정 봇</div><div class="card-body">DELETE 쿼리 전 승인<br><span style="color:var(--t3)">데이터 보호</span></div></div>
-            <div class="card"><div style="font-size:1.5em;margin-bottom:.3em">💬</div><div class="card-title">고객 응대 봇</div><div class="card-body">민감 답변 전 검토<br><span style="color:var(--t3)">브랜드 리스크 관리</span></div></div>
-            <div class="card"><div style="font-size:1.5em;margin-bottom:.3em">📄</div><div class="card-title">보고서 봇</div><div class="card-body">발송 전 내용 검토<br><span style="color:var(--t3)">품질 보증</span></div></div>
-            <div class="card"><div style="font-size:1.5em;margin-bottom:.3em">👔</div><div class="card-title">채용 알림 봇</div><div class="card-body">합격/불합격 통보 전 승인<br><span style="color:var(--t3)">HR 실수 방지</span></div></div>
-            <div class="card"><div style="font-size:1.5em;margin-bottom:.3em">🔐</div><div class="card-title">권한 변경 봇</div><div class="card-body">관리자 권한 부여 전 승인<br><span style="color:var(--t3)">보안 사고 방지</span></div></div>
+        <h2 class="h2 rv d1">이메일 말고 <span class="a">어디에 더 쓸 수 있을까?</span></h2>
+        <div class="cols c3 rv d2">
+            <div class="card"><div style="font-size:1.3em;margin-bottom:.2em">💳</div><div class="ct">결제 봇</div><div class="cb">고액 결제 전 승인<br><span style="color:var(--t3)">금융 사고 예방</span></div></div>
+            <div class="card"><div style="font-size:1.3em;margin-bottom:.2em">🗄️</div><div class="ct">DB 수정 봇</div><div class="cb">데이터 삭제 전 승인<br><span style="color:var(--t3)">데이터 보호</span></div></div>
+            <div class="card"><div style="font-size:1.3em;margin-bottom:.2em">💬</div><div class="ct">고객 응대 봇</div><div class="cb">민감한 답변 전 검토<br><span style="color:var(--t3)">브랜드 리스크 관리</span></div></div>
+            <div class="card"><div style="font-size:1.3em;margin-bottom:.2em">📄</div><div class="ct">보고서 봇</div><div class="cb">발송 전 내용 검토<br><span style="color:var(--t3)">품질 보증</span></div></div>
+            <div class="card"><div style="font-size:1.3em;margin-bottom:.2em">👔</div><div class="ct">채용 알림 봇</div><div class="cb">합격/불합격 통보 전 승인<br><span style="color:var(--t3)">HR 실수 방지</span></div></div>
+            <div class="card"><div style="font-size:1.3em;margin-bottom:.2em">🔐</div><div class="ct">권한 관리 봇</div><div class="cb">관리자 권한 부여 전 승인<br><span style="color:var(--t3)">보안 사고 방지</span></div></div>
         </div>
-        <div class="insight rv d3" style="margin:1.5rem auto 0">
+        <div class="insight rv d3" style="margin:1rem auto 0">
             <span>🎯</span>
             <p><strong>공통 원칙</strong>: AI가 95%를 처리하고, 사람이 핵심 5%만 결정한다. 자동화의 <strong>효율성</strong>과 사람의 <strong>판단력</strong>을 결합.</p>
         </div>
@@ -398,12 +403,12 @@
 <!-- ===== 12. CLOSING ===== -->
 <section class="s" id="s12">
     <div class="grid"></div>
-    <div class="orb og" style="width:500px;height:500px;top:-15%;right:-10%;animation:f1 8s ease-in-out infinite"></div>
-    <div class="orb ob" style="width:400px;height:400px;bottom:-10%;left:-5%;animation:f2 10s ease-in-out infinite"></div>
+    <div class="orb og" style="width:400px;height:400px;top:-12%;right:-8%;animation:f1 8s ease-in-out infinite"></div>
+    <div class="orb ob" style="width:320px;height:320px;bottom:-8%;left:-4%;animation:f2 10s ease-in-out infinite"></div>
     <div class="sc c">
-        <div class="badge rv">Takeaway</div>
-        <h1 class="h1 rv d1" style="font-size:clamp(2rem,5vw,3.8rem)">
-            <span class="kw">AI가 판단</span>하고<br>사람이 <span class="kw">최종 결정</span>한다
+        <div class="badge rv">핵심 정리</div>
+        <h1 class="h1 rv d1" style="font-size:clamp(1.5rem,3.5vw,2.5rem)">
+            <span class="kw">AI가 판단</span>하고, 사람이 <span class="kw">최종 결정</span>한다
         </h1>
         <p class="h1sub rv d2">
             Act Operator + LangGraph + LangSmith<br>
@@ -418,10 +423,10 @@
 </section>
 
 <script>
-const slides=document.querySelectorAll('.s'),prog=document.getElementById('prog'),counter=document.getElementById('counter');
-const ob=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');const i=[...slides].indexOf(e.target);prog.style.width=`${((i+1)/slides.length)*100}%`;counter.textContent=`${i+1} / ${slides.length}`}})},{threshold:.35});
-slides.forEach(s=>ob.observe(s));
-document.addEventListener('keydown',e=>{const c=[...slides].findIndex(s=>{const r=s.getBoundingClientRect();return r.top>=0&&r.top<window.innerHeight*.5});if(e.key==='ArrowDown'||e.key===' '){e.preventDefault();if(c<slides.length-1)slides[c+1].scrollIntoView({behavior:'smooth'})}else if(e.key==='ArrowUp'){e.preventDefault();if(c>0)slides[c-1].scrollIntoView({behavior:'smooth'})}});
+const ss=document.querySelectorAll('.s'),pg=document.getElementById('prog'),ct=document.getElementById('cnt');
+const ob=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');const i=[...ss].indexOf(e.target);pg.style.width=`${((i+1)/ss.length)*100}%`;ct.textContent=`${i+1} / ${ss.length}`}})},{threshold:.35});
+ss.forEach(s=>ob.observe(s));
+document.addEventListener('keydown',e=>{const c=[...ss].findIndex(s=>{const r=s.getBoundingClientRect();return r.top>=0&&r.top<window.innerHeight*.5});if(e.key==='ArrowDown'||e.key===' '){e.preventDefault();if(c<ss.length-1)ss[c+1].scrollIntoView({behavior:'smooth'})}else if(e.key==='ArrowUp'){e.preventDefault();if(c>0)ss[c-1].scrollIntoView({behavior:'smooth'})}});
 </script>
 </body>
 </html>
