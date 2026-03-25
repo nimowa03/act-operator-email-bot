@@ -1,0 +1,7 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "email-bot": "./casts/email_bot/graph.py:email_bot_graph"
+  },
+  "env": ".env"
+}
