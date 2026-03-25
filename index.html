@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HITL 이메일 자동화 봇 — Act Operator Masterclass</title>
+
+    <link rel="stylesheet"
+        href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@300,400,500,700&display=swap">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-primary: #050508;
+            --bg-card: rgba(10, 10, 18, 0.92);
+            --bg-card-hover: rgba(0, 255, 170, 0.1);
+            --border-subtle: rgba(255, 255, 255, 0.12);
+            --border-accent: rgba(0, 255, 170, 0.3);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.78);
+            --text-tertiary: rgba(255, 255, 255, 0.55);
+            --accent-green: #00ffaa;
+            --accent-blue: #0088ff;
+            --accent-glow: rgba(0, 255, 170, 0.15);
+            --font-display: 'Clash Display', 'Pretendard Variable', Pretendard, sans-serif;
+            --font-body: 'Satoshi', 'Pretendard Variable', Pretendard, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --title-size: clamp(2.8rem, 7vw, 6rem);
+            --h2-size: clamp(2rem, 5vw, 3.8rem);
+            --h3-size: clamp(1.4rem, 3vw, 2rem);
+            --body-size: clamp(1rem, 1.8vw, 1.35rem);
+            --small-size: clamp(0.85rem, 1.3vw, 1.1rem);
+            --mono-size: clamp(0.85rem, 1.3vw, 1.05rem);
+            --slide-padding: clamp(1.5rem, 4vw, 4rem);
+            --content-gap: clamp(1rem, 2.5vw, 2.5rem);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-normal: 0.7s;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-snap-type: y mandatory; height: 100%; overflow-x: hidden; }
+        body { font-family: var(--font-body); background: var(--bg-primary); color: var(--text-primary); overflow-x: hidden; height: 100%; -webkit-font-smoothing: antialiased; }
+
+        .slide { width: 100vw; height: 100vh; height: 100dvh; overflow: hidden; scroll-snap-align: start; display: flex; flex-direction: column; position: relative; }
+        .slide-content { flex: 1; display: flex; flex-direction: column; justify-content: center; max-height: 100%; overflow: hidden; padding: var(--slide-padding); position: relative; z-index: 2; }
+        .slide-content.centered { align-items: center; text-align: center; }
+
+        .grid-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,255,170,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,170,0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; }
+        .orb { position: absolute; border-radius: 50%; filter: blur(120px); pointer-events: none; }
+        .orb-green { background: radial-gradient(circle, var(--accent-green) 0%, transparent 70%); opacity: 0.25; }
+        .orb-blue { background: radial-gradient(circle, var(--accent-blue) 0%, transparent 70%); opacity: 0.2; }
+
+        .section-badge { display: inline-flex; align-items: center; gap: 0.5em; padding: 0.35em 1em; border: 1px solid rgba(0,255,170,0.3); border-radius: 100px; font-size: var(--small-size); color: var(--accent-green); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; margin-bottom: var(--content-gap); width: fit-content; }
+        .slide-heading { font-family: var(--font-display); font-size: var(--h2-size); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: var(--content-gap); }
+        .slide-heading .accent { background: linear-gradient(135deg, var(--accent-green), var(--accent-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .slide-subtitle { font-size: var(--body-size); color: var(--text-secondary); line-height: 1.7; max-width: 650px; }
+
+        .title-main { font-family: var(--font-display); font-size: var(--title-size); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: clamp(0.5rem, 1.5vw, 1rem); }
+        .title-main .kw { background: linear-gradient(135deg, #00ffaa, #00ccff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .title-sub { font-size: clamp(1.1rem, 2vw, 1.5rem); color: var(--text-secondary); font-weight: 400; margin-bottom: clamp(1.5rem, 3vw, 3rem); }
+        .topics-row { display: flex; gap: clamp(0.5rem, 1.2vw, 1rem); justify-content: center; flex-wrap: wrap; }
+        .topic-pill { padding: 0.45em 1.1em; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 8px; font-size: var(--small-size); color: rgba(255,255,255,0.88); transition: all 0.3s ease; }
+        .topic-pill:hover { background: var(--bg-card-hover); border-color: var(--border-accent); color: var(--accent-green); }
+        .topic-pill .num { color: var(--accent-green); font-weight: 600; margin-right: 0.4em; }
+
+        .card { padding: clamp(0.8rem, 1.5vw, 1.5rem); background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; transition: all 0.4s var(--ease-out-expo); }
+        .card:hover { background: var(--bg-card-hover); border-color: var(--border-accent); transform: translateY(-3px); }
+
+        .quote-block { padding: clamp(0.8rem, 2vw, 1.5rem) clamp(1rem, 2.5vw, 2rem); background: var(--bg-card); border-left: 2px solid var(--accent-green); border-radius: 0 8px 8px 0; font-size: var(--body-size); color: rgba(255,255,255,0.9); line-height: 1.7; max-width: 700px; }
+        .quote-block .hl { color: var(--accent-green); font-weight: 600; }
+
+        /* Flow */
+        .flow-container { display: flex; align-items: center; justify-content: center; gap: clamp(0.3rem, 0.8vw, 0.6rem); flex-wrap: wrap; width: 100%; max-width: 950px; margin: 0 auto; }
+        .flow-step { padding: clamp(0.6rem, 1.2vw, 1.2rem) clamp(0.8rem, 1.5vw, 1.5rem); background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; text-align: center; flex: 1; min-width: 120px; transition: all 0.3s ease; }
+        .flow-step:hover { border-color: var(--border-accent); background: var(--bg-card-hover); }
+        .flow-step .step-num { font-family: var(--font-mono); font-size: var(--small-size); color: var(--accent-green); margin-bottom: 0.3em; }
+        .flow-step .step-label { font-family: var(--font-display); font-size: var(--body-size); font-weight: 600; }
+        .flow-step .step-desc { font-size: var(--small-size); color: var(--text-secondary); margin-top: 0.2em; }
+        .flow-step.hitl-step { border-color: rgba(255,170,0,0.4); background: rgba(255,170,0,0.06); }
+        .flow-step.hitl-step .step-num { color: #ffaa00; }
+        .flow-arrow { color: var(--accent-green); font-size: clamp(1rem, 1.8vw, 1.5rem); opacity: 0.5; flex-shrink: 0; }
+
+        /* Code block */
+        .code-block { background: rgba(0,0,0,0.6); border: 1px solid var(--border-subtle); border-radius: 12px; padding: clamp(1rem, 2vw, 1.5rem); font-family: var(--font-mono); font-size: var(--mono-size); color: var(--text-secondary); line-height: 1.7; overflow-x: auto; max-width: 800px; width: 100%; }
+        .code-block .comment { color: var(--text-tertiary); }
+        .code-block .keyword { color: #c792ea; }
+        .code-block .func { color: #82aaff; }
+        .code-block .string { color: #c3e88d; }
+        .code-block .accent-code { color: var(--accent-green); font-weight: 600; }
+
+        /* Table */
+        .comparison-wrapper { width: 100%; max-width: 800px; margin: 0 auto; }
+        .comparison-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 12px; overflow: hidden; background: var(--bg-card); border: 1px solid var(--border-subtle); }
+        .comparison-table th, .comparison-table td { padding: clamp(0.5rem, 1.2vw, 1rem) clamp(0.6rem, 1.5vw, 1.2rem); text-align: center; font-size: var(--body-size); border-bottom: 1px solid var(--border-subtle); }
+        .comparison-table thead th { background: rgba(0,255,170,0.05); font-family: var(--font-display); font-weight: 600; font-size: var(--small-size); letter-spacing: 0.05em; }
+        .comparison-table thead th:first-child { text-align: left; }
+        .comparison-table tbody td:first-child { text-align: left; font-weight: 600; font-family: var(--font-mono); font-size: var(--mono-size); color: var(--accent-green); }
+        .comparison-table tbody tr:last-child td { border-bottom: none; }
+
+        /* Insight box */
+        .insight-box { margin-top: clamp(0.8rem, 2vw, 1.5rem); padding: clamp(0.6rem, 1.5vw, 1.2rem) clamp(1rem, 2vw, 1.5rem); background: rgba(0,255,170,0.04); border: 1px solid rgba(0,255,170,0.12); border-radius: 10px; display: flex; align-items: flex-start; gap: 0.6em; text-align: left; max-width: 800px; width: 100%; }
+        .insight-box p { font-size: var(--small-size); color: var(--text-secondary); line-height: 1.6; }
+        .insight-box p strong { color: var(--accent-green); font-weight: 600; }
+
+        /* Three columns */
+        .three-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: clamp(0.8rem, 1.5vw, 1.2rem); width: 100%; max-width: 900px; margin: 0 auto; }
+
+        /* Animations */
+        .reveal { opacity: 0; transform: translateY(25px); transition: opacity var(--duration-normal) var(--ease-out-expo), transform var(--duration-normal) var(--ease-out-expo); }
+        .reveal-left { opacity: 0; transform: translateX(-30px); transition: opacity var(--duration-normal) var(--ease-out-expo), transform var(--duration-normal) var(--ease-out-expo); }
+        .reveal-scale { opacity: 0; transform: scale(0.92); transition: opacity var(--duration-normal) var(--ease-out-expo), transform var(--duration-normal) var(--ease-out-expo); }
+        .slide.visible .reveal, .slide.visible .reveal-left, .slide.visible .reveal-scale { opacity: 1; transform: translateY(0) translateX(0) scale(1); }
+        .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; } .delay-4 { transition-delay: 0.4s; } .delay-5 { transition-delay: 0.5s; } .delay-6 { transition-delay: 0.6s; }
+
+        .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--accent-green), var(--accent-blue)); z-index: 100; transition: width 0.3s ease; width: 0%; }
+
+        @keyframes float1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-30px, 20px); } }
+        @keyframes float2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(20px, -30px); } }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .pulse { animation: pulse 2s ease-in-out infinite; }
+    </style>
+</head>
+
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- ========== SLIDE 1: TITLE ========== -->
+    <section class="slide" id="slide-1">
+        <div class="grid-bg"></div>
+        <div class="orb orb-green" style="width:500px;height:500px;top:-15%;right:-10%;animation:float1 8s ease-in-out infinite"></div>
+        <div class="orb orb-blue" style="width:400px;height:400px;bottom:-10%;left:-5%;animation:float2 10s ease-in-out infinite"></div>
+        <div class="slide-content centered">
+            <div class="section-badge reveal">Act Operator &times; LangGraph</div>
+            <h1 class="title-main reveal delay-1">
+                <span class="kw">HITL</span> 이메일<br>자동화 봇
+            </h1>
+            <p class="title-sub reveal delay-2">AI가 판단하고, 사람이 최종 결정한다</p>
+            <div class="topics-row reveal delay-3">
+                <span class="topic-pill"><span class="num">01</span> Act Operator</span>
+                <span class="topic-pill"><span class="num">02</span> Human-in-the-Loop</span>
+                <span class="topic-pill"><span class="num">03</span> 라이브 시연</span>
+                <span class="topic-pill"><span class="num">04</span> LangSmith 추적</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SLIDE 2: 문제 제기 ========== -->
+    <section class="slide" id="slide-2">
+        <div class="grid-bg"></div>
+        <div class="slide-content">
+            <div class="section-badge reveal">Problem</div>
+            <h2 class="slide-heading reveal delay-1">AI가 이메일을 <span class="accent">마음대로</span> 보낸다면?</h2>
+            <div class="quote-block reveal delay-2">
+                "김팀장에게 회의록 보내줘" → AI가 <span class="hl">즉시 전송</span><br>
+                → 잘못된 주소로 발송 → 기밀 유출 🚨 → <span class="hl">되돌릴 수 없음</span>
+            </div>
+            <div class="insight-box reveal delay-3" style="margin-top: 2rem;">
+                <span>💡</span>
+                <p><strong>핵심 문제</strong>: 자동화의 효율성은 좋지만, 민감한 행동에는 반드시 <strong>사람의 승인</strong>이 필요하다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SLIDE 3: Act Operator 소개 ========== -->
+    <section class="slide" id="slide-3">
+        <div class="grid-bg"></div>
+        <div class="slide-content">
+            <div class="section-badge reveal">Act Operator</div>
+            <h2 class="slide-heading reveal delay-1">명령어 <span class="accent">4개</span>로 끝나는 AI 프로젝트</h2>
+            <div class="comparison-wrapper reveal delay-2">
+                <table class="comparison-table">
+                    <thead>
+                        <tr><th>명령어</th><th>역할</th><th>소요</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>act new</td><td>프로젝트 뼈대 생성</td><td>10초</td></tr>
+                        <tr><td>uv sync</td><td>의존성 설치</td><td>5초</td></tr>
+                        <tr><td>act cast</td><td>새 워크플로우 추가</td><td>5초</td></tr>
+                        <tr><td>langgraph dev</td><td>시각적 디버깅 서버</td><td>3초</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="insight-box reveal delay-3">
+                <span>🎬</span>
+                <p><strong>Act</strong> = 영화 한 편 (전체 프로젝트) &nbsp;|&nbsp; <strong>Cast</strong> = 배우 (개별 워크플로우). 하나의 Act 안에 여러 Cast가 독립 패키지로 존재합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SLIDE 4: HITL 개념 ========== -->
+    <section class="slide" id="slide-4">
+        <div class="grid-bg"></div>
+        <div class="orb orb-green" style="width:350px;height:350px;top:10%;right:5%;animation:float1 7s ease-in-out infinite"></div>
+        <div class="slide-content">
+            <div class="section-badge reveal">Core Concept</div>
+            <h2 class="slide-heading reveal delay-1">Human-in-the-Loop<br><span class="accent">interrupt → 승인 → resume</span></h2>
+            <div class="flow-container reveal delay-2">
+                <div class="flow-step">
+                    <div class="step-num">01</div>
+                    <div class="step-label">사용자 요청</div>
+                    <div class="step-desc">"이메일 보내줘"</div>
+                </div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">
+                    <div class="step-num">02</div>
+                    <div class="step-label">AI 초안 작성</div>
+                    <div class="step-desc">GPT-4o-mini</div>
+                </div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step hitl-step">
+                    <div class="step-num">⏸️</div>
+                    <div class="step-label">interrupt()</div>
+                    <div class="step-desc">승인 대기</div>
+                </div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">
+                    <div class="step-num">03</div>
+                    <div class="step-label">사용자 결정</div>
+                    <div class="step-desc">승인 / 거부</div>
+                </div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">
+                    <div class="step-num">04</div>
+                    <div class="step-label">Gmail 전송</div>
+                    <div class="step-desc">SMTP</div>
+                </div>
+            </div>
+            <div class="insight-box reveal delay-3" style="margin: 2rem auto 0;">
+                <span>⭐</span>
+                <p><strong>interrupt()</strong> 한 줄이 HITL의 핵심. 그래프 실행을 완전히 멈추고, <strong>Command(resume="yes")</strong>로 재개합니다. Checkpointer가 중단 상태를 저장합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SLIDE 5: 코드 구조 ========== -->
+    <section class="slide" id="slide-5">
+        <div class="grid-bg"></div>
+        <div class="slide-content centered">
+            <div class="section-badge reveal">Architecture</div>
+            <h2 class="slide-heading reveal delay-1">이메일 봇의 <span class="accent">3개 노드</span></h2>
+            <div class="three-col reveal delay-2">
+                <div class="card">
+                    <div style="font-size:1.5em;margin-bottom:0.5em;">📝</div>
+                    <div style="font-family:var(--font-display);font-weight:600;font-size:var(--body-size);margin-bottom:0.5em;">DraftEmailNode</div>
+                    <div style="font-size:var(--small-size);color:var(--text-secondary);line-height:1.6;">
+                        사용자 요청 → OpenAI에 전달<br>
+                        → 수신자, 제목, 본문 파싱
+                    </div>
+                    <div style="margin-top:0.8em;font-family:var(--font-mono);font-size:0.85em;color:var(--accent-green);">nodes.py</div>
+                </div>
+                <div class="card" style="border-color:rgba(255,170,0,0.3);">
+                    <div style="font-size:1.5em;margin-bottom:0.5em;">⏸️</div>
+                    <div style="font-family:var(--font-display);font-weight:600;font-size:var(--body-size);margin-bottom:0.5em;">ReviewEmailNode</div>
+                    <div style="font-size:var(--small-size);color:var(--text-secondary);line-height:1.6;">
+                        <span style="color:#ffaa00;font-weight:600;">interrupt()</span> 호출<br>
+                        → 그래프 중단 → 승인 대기
+                    </div>
+                    <div style="margin-top:0.8em;font-family:var(--font-mono);font-size:0.85em;color:#ffaa00;">HITL 핵심</div>
+                </div>
+                <div class="card">
+                    <div style="font-size:1.5em;margin-bottom:0.5em;">📧</div>
+                    <div style="font-family:var(--font-display);font-weight:600;font-size:var(--body-size);margin-bottom:0.5em;">SendEmailNode</div>
+                    <div style="font-size:var(--small-size);color:var(--text-secondary);line-height:1.6;">
+                        승인 시 → Gmail SMTP 전송<br>
+                        거부 시 → 전송 취소
+                    </div>
+                    <div style="margin-top:0.8em;font-family:var(--font-mono);font-size:0.85em;color:var(--accent-green);">tools.py</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SLIDE 6: 핵심 코드 ========== -->
+    <section class="slide" id="slide-6">
+        <div class="grid-bg"></div>
+        <div class="slide-content centered">
+            <div class="section-badge reveal">Code</div>
+            <h2 class="slide-heading reveal delay-1"><span class="accent">interrupt()</span> 한 줄의 힘</h2>
+            <div class="code-block reveal delay-2" style="text-align:left;">
+                <span class="keyword">class</span> <span class="func">ReviewEmailNode</span>(BaseNode):<br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">def</span> <span class="func">execute</span>(<span class="keyword">self</span>, state):<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;review_info = <span class="string">f"수신자: {state['email_to']}\n제목: {state['email_subject']}"</span><br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># ⭐ 이 한 줄이 그래프를 멈춘다</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;decision = <span class="accent-code">interrupt(review_info)</span><br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># 사용자가 resume하면 여기부터 이어서 실행</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> decision == <span class="string">"yes"</span>:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> {<span class="string">"messages"</span>: [AIMessage(<span class="string">"승인됨"</span>)]}<br>
+            </div>
+            <div class="insight-box reveal delay-3" style="margin: 1.5rem auto 0;">
+                <span>💾</span>
+                <p><strong>Checkpointer = 게임의 세이브 포인트</strong>. interrupt()로 멈추면 상태가 저장되고, resume할 때 저장된 상태에서 이어서 실행됩니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SLIDE 7: 시연 결과 ========== -->
+    <section class="slide" id="slide-7">
+        <div class="grid-bg"></div>
+        <div class="orb orb-blue" style="width:400px;height:400px;bottom:-5%;right:0%;animation:float2 9s ease-in-out infinite"></div>
+        <div class="slide-content centered">
+            <div class="section-badge reveal">Live Demo</div>
+            <h2 class="slide-heading reveal delay-1">실제 <span class="accent">Gmail 전송</span> 시연</h2>
+            <div class="code-block reveal delay-2" style="text-align:left;">
+                <span class="comment"># Step 1: 이메일 작성 요청</span><br>
+                graph.<span class="func">invoke</span>({<span class="string">"query"</span>: <span class="string">"makegrowth101@gmail.com에게 테스트 메일 보내줘"</span>})<br><br>
+                <span class="accent-code">⏸️ === 이메일 승인 요청 ===</span><br>
+                <span class="accent-code">수신자: makegrowth101@gmail.com</span><br>
+                <span class="accent-code">제목: 테스트 이메일</span><br>
+                <span class="accent-code">승인하려면 'yes', 거부하려면 'no'</span><br><br>
+                <span class="comment"># Step 2: 사용자 승인</span><br>
+                graph.<span class="func">invoke</span>(Command(resume=<span class="string">"yes"</span>))<br><br>
+                <span class="accent-code">✅ 이메일 전송 완료: makegrowth101@gmail.com</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SLIDE 8: LangSmith ========== -->
+    <section class="slide" id="slide-8">
+        <div class="grid-bg"></div>
+        <div class="slide-content">
+            <div class="section-badge reveal">Observability</div>
+            <h2 class="slide-heading reveal delay-1">LangSmith — AI의 <span class="accent">블랙박스</span></h2>
+            <div class="three-col reveal delay-2">
+                <div class="card">
+                    <div style="font-size:1.3em;margin-bottom:0.5em;">🔵</div>
+                    <div style="font-family:var(--font-display);font-weight:600;margin-bottom:0.3em;">draft_email</div>
+                    <div style="font-size:var(--small-size);color:var(--text-secondary);line-height:1.5;">
+                        LLM 프롬프트<br>응답 전문<br>
+                        <span style="font-family:var(--font-mono);color:var(--accent-green);">토큰: 180 / $0.0002</span>
+                    </div>
+                </div>
+                <div class="card" style="border-color:rgba(255,170,0,0.3);">
+                    <div style="font-size:1.3em;margin-bottom:0.5em;">🟡</div>
+                    <div style="font-family:var(--font-display);font-weight:600;margin-bottom:0.3em;">review_email</div>
+                    <div style="font-size:var(--small-size);color:var(--text-secondary);line-height:1.5;">
+                        ⏸️ Interrupt 발생<br>사용자 대기 시간<br>
+                        <span style="font-family:var(--font-mono);color:#ffaa00;">resume: "yes"</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div style="font-size:1.3em;margin-bottom:0.5em;">🟢</div>
+                    <div style="font-family:var(--font-display);font-weight:600;margin-bottom:0.3em;">send_email</div>
+                    <div style="font-size:var(--small-size);color:var(--text-secondary);line-height:1.5;">
+                        SMTP 연결<br>전송 결과<br>
+                        <span style="font-family:var(--font-mono);color:var(--accent-green);">✅ 전송 완료</span>
+                    </div>
+                </div>
+            </div>
+            <div class="insight-box reveal delay-3" style="margin: 1.5rem auto 0;">
+                <span>⚙️</span>
+                <p><strong>.env 설정 3줄</strong>만으로 모든 실행이 자동 추적됩니다. 코드 수정 없이 <strong>LANGSMITH_TRACING=true</strong>만 추가하면 끝.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SLIDE 9: 활용 사례 ========== -->
+    <section class="slide" id="slide-9">
+        <div class="grid-bg"></div>
+        <div class="slide-content">
+            <div class="section-badge reveal">Use Cases</div>
+            <h2 class="slide-heading reveal delay-1">HITL로 <span class="accent">뭘 할 수 있는가</span></h2>
+            <div class="comparison-wrapper reveal delay-2">
+                <table class="comparison-table">
+                    <thead>
+                        <tr><th>활용 사례</th><th>HITL 지점</th><th>가치</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>이메일 봇</td><td>전송 전 승인</td><td>오발송 방지</td></tr>
+                        <tr><td>결제 봇</td><td>고액 결제 승인</td><td>금융 사고 예방</td></tr>
+                        <tr><td>DB 수정 봇</td><td>DELETE 전 승인</td><td>데이터 보호</td></tr>
+                        <tr><td>고객 응대 봇</td><td>민감 답변 검토</td><td>브랜드 리스크 관리</td></tr>
+                        <tr><td>보고서 봇</td><td>발송 전 검토</td><td>품질 보증</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="insight-box reveal delay-3">
+                <span>🎯</span>
+                <p><strong>공통 원칙</strong>: 자동화의 <strong>효율성</strong>과 사람의 <strong>판단력</strong>을 결합. AI가 95%를 처리하고, 사람이 핵심 5%만 결정한다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SLIDE 10: CLOSING ========== -->
+    <section class="slide" id="slide-10">
+        <div class="grid-bg"></div>
+        <div class="orb orb-green" style="width:500px;height:500px;top:-15%;right:-10%;animation:float1 8s ease-in-out infinite"></div>
+        <div class="orb orb-blue" style="width:400px;height:400px;bottom:-10%;left:-5%;animation:float2 10s ease-in-out infinite"></div>
+        <div class="slide-content centered">
+            <div class="section-badge reveal">Takeaway</div>
+            <h1 class="title-main reveal delay-1" style="font-size: var(--h2-size);">
+                <span class="kw">AI가 판단</span>하고<br>사람이 <span class="kw">최종 결정</span>한다
+            </h1>
+            <p class="title-sub reveal delay-2">
+                Act Operator + LangGraph + LangSmith<br>
+                = 안전하고 추적 가능한 AI 자동화
+            </p>
+            <div class="topics-row reveal delay-3">
+                <span class="topic-pill" style="cursor:pointer;" onclick="window.open('https://github.com/nimowa03/act-operator-email-bot')">📂 GitHub Repository</span>
+                <span class="topic-pill" style="cursor:pointer;" onclick="window.open('https://smith.langchain.com')">📊 LangSmith Dashboard</span>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        /* Scroll-triggered animations */
+        const slides = document.querySelectorAll('.slide');
+        const progressBar = document.getElementById('progressBar');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    const idx = [...slides].indexOf(e.target);
+                    progressBar.style.width = `${((idx + 1) / slides.length) * 100}%`;
+                }
+            });
+        }, { threshold: 0.35 });
+        slides.forEach(s => observer.observe(s));
+
+        /* Keyboard navigation */
+        document.addEventListener('keydown', e => {
+            const current = [...slides].findIndex(s => s.classList.contains('visible'));
+            if (e.key === 'ArrowDown' || e.key === ' ') {
+                e.preventDefault();
+                if (current < slides.length - 1) slides[current + 1].scrollIntoView({ behavior: 'smooth' });
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (current > 0) slides[current - 1].scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    </script>
+</body>
+</html>
